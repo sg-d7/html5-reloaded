@@ -1,0 +1,17 @@
+{
+  "description": "ItFactory HTML5",
+  "name": "html5-reloaded",
+  "dependencies": {
+    "angularjs": "*",
+    "bootstrap": "*",
+    "grunt": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "jquery": "*"
+  },
+  "version": "1.0.0",
+  "repository": "https://github.com/sgd7/html5-reloaded.git",
+  "license": "MIT"
+}
