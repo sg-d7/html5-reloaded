@@ -2,6 +2,7 @@
   "description": "ItFactory HTML5",
   "name": "html5-reloaded",
   "dependencies": {
+    "angular": "^1.5.5",
     "angularjs": "*",
     "bootstrap": "*",
     "grunt": "^1.0.1",
