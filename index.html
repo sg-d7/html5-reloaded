@@ -16,7 +16,7 @@
 				<![endif]-->
 </head>
 
-<body>
+<body data-ng-controller="hello">
 				<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 								<div class="container">
 												<div class="navbar-header">
@@ -42,7 +42,7 @@
 								</div>
 				</nav>
 
-				<div class="container" data-ng-controller="hello">
+				<div class="container">
 								<div class="starter-template">
 												<h1>Hello, 
 													<span data-ng-bind="name"></span>!
@@ -50,7 +50,15 @@
 												<p class="lead">Now you can start your own project with <a target="_blank" href="http://getbootstrap.com/">Bootstrap 3.3.6</a>. This plugin is a fork from <a href="https://github.com/le717/brackets-html-skeleton#readme">HTML Skeleton</a>.</p>
 								</div>
 				</div>
-
+				
+				<div class="row">
+					<div class="col-xs-4 col-xs-offset-4">
+						<ul>
+							<li data-ng-repeat="user in users">{{ user.name }}, {{ user.job }}, {{ user.age }}</li>
+						</ul>
+					</div>
+				</div>
+				
 				<script src="build/js/html5-reloaded.min.js"></script>
 </body>
 </html>
