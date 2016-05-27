@@ -11,7 +11,7 @@ module.exports = function(grunt) {
         src: ['node_modules/jquery/dist/jquery.min.js',
 			  'node_modules/angular/angular.min.js',
 			  'node_modules/bootstrap/dist/js/bootstrap.min.js',
-			  'js/**/*.js'
+			  'src/js/**/*.js'
 		],
         dest: 'build/js/<%= pkg.name %>.min.js'
       }
@@ -26,22 +26,38 @@ module.exports = function(grunt) {
 		  'build/css/<%= pkg.name %>.min.css': [
 			  'node_modules/bootstrap/dist/css/bootstrap.min.css', 
 			  'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
-			  'css/**/*.css'
+			  'src/css/**/*.css'
 		  ]
 		}
 	  }
 	},
 	copy: {
 	  main: {
-		expand: true,
-		cwd: 'node_modules/bootstrap/dist/fonts',
-		src: '**',
-		dest: 'build/fonts',
+		  files: [
+			  {
+				  expand: true,
+				  cwd: 'node_modules/bootstrap/dist/fonts',
+				  src: '**',
+				  dest: 'build/fonts'
+			  },
+			  {
+				  expand: true,
+				  cwd: 'src/json',
+				  src: '**',
+				  dest: 'build/json'
+			  },
+			  {
+				  expand: true,
+				  cwd: 'src',
+				  src: 'index.html',
+				  dest: 'build'
+			  }
+			]
 	  },
 	},
 	watch: {
   		scripts: {
-    		files: ['js/*.js', 'css/**/*.css'],
+    		files: ['src/js/*.js', 'src/css/**/*.css', 'src/**/*.html'],
     		tasks: ['dev'],
     		options: {
       			spawn: false,
