@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 			  {
 				  expand: true,
 				  cwd: 'src',
-				  src: 'index.html',
+				  src: '*.html',
 				  dest: 'build'
 			  }
 			]
@@ -61,6 +61,7 @@ module.exports = function(grunt) {
     		tasks: ['dev'],
     		options: {
       			spawn: false,
+                event: ['changed', 'added', 'deleted']
     		},
   		},
 	}
