@@ -1,6 +1,7 @@
-module.exports = function(grunt) {
-
-  // Project configuration.
+module.exports = grunt => {
+	// load all grunt tasks matching the ['grunt-*', '@*/grunt-*'] patterns 
+	require('load-grunt-tasks')(grunt);
+// Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
@@ -8,73 +9,99 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: ['node_modules/jquery/dist/jquery.min.js',
-			  'node_modules/angular/angular.min.js',
-			  'node_modules/bootstrap/dist/js/bootstrap.min.js',
-			  'src/js/**/*.js'
-		],
+        src: [
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/angular/angular.min.js',
+            'node_modules/bootstrap/dist/js/bootstrap.min.js',
+            'build.js'
+        ],
         dest: 'build/js/<%= pkg.name %>.min.js'
       }
     },
-	cssmin: {
-	  options: {
-		shorthandCompacting: false,
-		roundingPrecision: -1
-	  },
-	  target: {
-		files: {
-		  'build/css/<%= pkg.name %>.min.css': [
-			  'node_modules/bootstrap/dist/css/bootstrap.min.css', 
-			  'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
-			  'src/css/**/*.css'
-		  ]
-		}
-	  }
-	},
-	copy: {
-	  main: {
-		  files: [
-			  {
-				  expand: true,
-				  cwd: 'node_modules/bootstrap/dist/fonts',
-				  src: '**',
-				  dest: 'build/fonts'
-			  },
-			  {
-				  expand: true,
-				  cwd: 'src/json',
-				  src: '**',
-				  dest: 'build/json'
-			  },
-			  {
-				  expand: true,
-				  cwd: 'src',
-				  src: '*.html',
-				  dest: 'build'
-			  }
-			]
-	  },
-	},
-	watch: {
-  		scripts: {
-    		files: ['src/js/*.js', 'src/css/**/*.css', 'src/**/*.html'],
-    		tasks: ['dev'],
-    		options: {
-      			spawn: false,
-                event: ['changed', 'added', 'deleted']
-    		},
-  		},
-	}
+    cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1
+      },
+      target: {
+        files: {
+          'build/css/<%= pkg.name %>.min.css': [
+              'node_modules/bootstrap/dist/css/bootstrap.min.css',
+              'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+              'src/css/**/*.css'
+          ]
+        }
+      }
+    },
+    copy: {
+      main: {
+          files: [
+              {
+                expand: true,
+                cwd: 'node_modules/bootstrap/dist/fonts',
+                src: '**',
+                dest: 'build/fonts'
+              },
+              {
+                expand: true,
+                cwd: 'src/json',
+                src: '**',
+                dest: 'build/json'
+              },
+              {
+                expand: true,
+                cwd: 'src',
+                src: '*.html',
+                dest: 'build'
+              }
+            ]
+      }
+    },
+    babel: {
+        options: {
+          sourceMap: false,
+            presets: ['es2015']
+        },
+        dist: {
+            files: {
+                "build.js": 'built.js'
+            }
+        }
+    },
+    concat: {
+        options: {
+            separator: ';',
+        },
+        dist: {
+            src: [
+                'src/js/class/*.js',
+                'src/js/*.js'
+            ],
+            dest: 'built.js',
+        }
+    },
+    watch: {
+      scripts: {
+        files: ['src/js/**/*.js', 'src/css/**/*.css', 'src/**/*.html'],
+        tasks: ['dev'],
+        options: {
+            spawn: false,
+            event: ['changed', 'added', 'deleted']
+        },
+      },
+    }
   });
 
   // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+//  grunt.loadNpmTasks('grunt-contrib-uglify');
+//  grunt.loadNpmTasks('grunt-contrib-watch');
+//  grunt.loadNpmTasks('grunt-contrib-cssmin');
+//  grunt.loadNpmTasks('grunt-contrib-copy');
+//  grunt.loadNpmTasks('babel');
 
   // Default task(s).
-  grunt.registerTask('dev', ['uglify', 'cssmin', 'copy']);
+  grunt.registerTask('dev', ['concat', 'babel', 'uglify', 'cssmin', 'copy']);
   grunt.registerTask('default', ['watch']);
-
+ 
+	
 };
