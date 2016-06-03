@@ -1,18 +1,217 @@
+body {
+	
+}
 .container {
 	margin: 70px auto;
 	width: 960px;
-	background-image: url('../img/bg.jpg');
+	/* background-image: url('../img/bg.jpg'); */
 }
 
 .rounded {
 	/*
 	border-radius: 50% 20% 40% 10%;
 	*/
-	border-radius: 3px;
+	border-radius: 2px;
 	/*
 	border-top-left-radius: 30%;
 	*/
-	width: 160px;
-	height: 100px;
-	background-color: rgba(0, 255, 255, 0.77);
+	padding: 7px 15px;
+	/*background-color: rgba(0, 255, 255, 0.3);*/
+	/*background: linear-gradient(90deg, rgba(0, 255, 255, 0.85), rgba(255, 0, 0, 0.3));*/
+	/* linearis gradiens
+	
+	background: linear-gradient(
+		#f0f0f0,
+		rgb(227, 227, 227),
+		#f0f0f0
+	);
+	*/
+	background: radial-gradient(
+		#f0f0f0,
+		rgb(203, 19, 19),
+		#f0f0f0
+	);
+	/*opacity: 0.2;*/
+	border: solid 1px #f0f0f0;
+	font-size: 24px;
+}
+
+.rounded span {
+	opacity: 1;
+}
+
+.image-card {
+	width: 240px;
+	height: 360px;
+	/*
+	box-shadow: none|h-shadow v-shadow blur spread color |inset|initial|inherit;
+	*/
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	/*font-family: sans-serif;*/
+	font-family: 'Roboto', sans-serif;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.image-card .image-card-img {
+	width: 100%;
+}
+
+.image-card .title {
+	text-align: center;
+	font-size: 1.3em;
+	padding: 20px;
+	/*
+	text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit;
+	*/
+	/*
+	text-shadow: 0 0 2px;
+	*/
+	text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+	font-weight: 600;
+}
+
+.image-card .content {
+	text-align: justify;
+	padding: 5px 15px;
+	/* eltördeli a szöveget
+	word-wrap: break-word;
+	*/
+	/* hogy ne logjon túl a div keretén */
+	overflow: hidden;
+	font-weight: 400;
+}
+
+.image-card .content i {
+	font-size: 0.7em;
+}
+
+/* kibővített css szelektor, olyan elemet keres, ahol mindkét css osztály definiálva van (content és a more osztály is) */ 
+.image-card .content.more {
+	height: 0.9em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: 200;
+}
+
+.card-2 {
+	/*
+	transform: translate(50px, 100px);
+	transform: rotate(90deg);
+	*/
+	/*
+	transform: translate(50px, 100px) rotate(90deg) scale(2);
+	*/
+	/*
+	transform: 
+		translate(50px, 100px) 
+		rotate(90deg) 
+		scale(0.5, 1)
+		skewX(20deg);
+	*/
+	/*
+	transform: matrix(1, 0, 0, 1, 50, 100);
+	*/
+	/*
+	transform: rotateX(30deg) rotateY(30deg) rotateZ(30deg);
+	*/
+	/* 3d-s forgatás
+	transform: rotate3d(1, 0.5, 0.5, 50deg);
+	*/
+	transition: all 0.5s;
+}
+/*
+.card-2:hover {
+	transform: rotateY(180deg);
+}
+.card-2:hover .back {
+	display: block;
+	opacity: 1;
+}
+.card-2:hover .front {
+	opacity: 0;
+}
+*/
+.image-card .back {
+	display: none;
+	background-color: aqua;
+}
+.image-card .front,
+.image-card .back {
+	width: 100%;
+	height: 100%;
+	transition: all 0.25s;
+	position: absolute;
+	width: 240px;
+	height: 360px;
+}
+
+/* animáljuk a színt */
+/*
+.image-card .front {
+	animation-name: example;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	background-color: #e8a9a9;
+}
+*/
+@keyframes example {
+	/*
+	from { background-color:  aqua;}
+	to { background-color: #e8a9a9;}
+	*/
+	0% { background-color:  aqua;}
+	50% { background-color: #e8a9a9;}
+	100% { background-color:  aqua;}
+}
+
+/* töltő animáció */
+.preloader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	overflow: hidden;
+}
+
+.preloader-indicator {
+	position: absolute;
+	display: inline-block;
+	width: 100px;
+	height: 4px;
+	margin-left: 110%;
+	background: linear-gradient(
+		90deg,
+		rgba(100, 149, 237, 0.19),
+		rgb(100, 149, 237),
+		rgb(100, 149, 237),
+		rgb(100, 149, 237),
+		rgba(100, 149, 237, 0.19)
+	);
+	animation-name: preload;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	animation-duration: 2s;
+}
+@keyframes preload {
+	0% {margin-left: -10%}
+	/*
+	49% {margin-left: 101%}
+	50% {margin-left: 0%}
+	*/
+	100% {margin-left: 110%}
+}
+
+.card-2:hover img,
+.card-2:hover div,
+.card-2:hover p {
+	transition: all 0.4s;
+}
+
+.card-2:hover img,
+.card-2:hover div,
+.card-2:hover p {
+	opacity: 0;
 }
