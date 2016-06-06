@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+	<meta name="Author" content=""/>
+	<style>
+		.dropTarget {
+			width: 350px;
+			height: 70px;
+			padding: 5px;
+			border: 1px solid #aaaaaa;
+			margin-right: 10px;
+			display: inline-block;
+		}
+		
+		img.draggable {
+			height: 50px;
+			margin-right: 10px
+		}
+		
+		canvas.draggable {
+			width: 200px;
+			height: 100px;
+		}
+		
+		canvas {
+			border: 1px solid #aaaaaa;
+		}
+	</style>
+</head>
+<body>
+	<p class="title">HTML5 drag&drop</p>
+	
+	<div class="dropTarget"></div>
+	<div class="dropTarget"></div>
+
+	<br>
+	
+	<img src="img/html5-logo.jpg" alt="" class="draggable">
+	<img src="img/html5-logo.jpg" alt="" class="draggable">
+	
+	<br>
+	<!-- canvas elem -->
+	<p>Canvas elem használata</p>
+	<canvas id="myCanvas" class="draggable"></canvas>
+	
+	<script>
+		// canvas példák
+		// négyzet rajzolás
+		var canvas = document.querySelector('#myCanvas');
+		var ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#ff0000';
+		ctx.fillRect(20, 20, 160, 60);
+		
+		// vonal rajzolása
+		/* 
+		ctx.moveTo(0, 0);
+		ctx.lineTo(200, 100);
+		ctx.stroke(); 
+		*/
+		
+		// kör rajzolása
+		ctx.beginPath();
+		ctx.arc(150, 40, 30, 0, 2 * Math.PI);
+		ctx.fillStyle = '#0000ff';
+		ctx.strokeStyle = '#0000ff';
+		ctx.fill();
+		ctx.stroke();
+		
+		// szöveg rajzolása
+		ctx.font = '24px sans-serif';
+		ctx.strokeStyle = '#00ff00';
+		ctx.strokeText('123456', 20, 120);
+		
+		// kitöltés színátmenettel
+		var ctx = canvas.getContext('2d');
+		var grd = ctx.createLinearGradient(0, 0, 200, 0);
+		grd.addColorStop(0, 'red');
+		grd.addColorStop('0.5', 'white');
+		grd.addColorStop(1, 'blue');
+		ctx.fillStyle = grd;
+		ctx.fillRect(180, 20, 150, 100)
+		
+		
+		// drag & drop példa
+		function drop(ev) {
+			ev.preventDefault();
+			
+			var data = ev.dataTransfer.getData("sourceID");
+			ev.target.appendChild(document.querySelector("#" + data));
+		}
+		
+		function allowDrop(ev) {
+			// esemény alapértelemezett eseményének letiltása
+			ev.preventDefault();
+		}
+		
+		function setDragAndDrop() {
+			var targets = document.querySelectorAll('.dropTarget');
+			var draggable = document.querySelectorAll('.draggable');
+			
+			// célpontok beállítása
+			for (var i = 0; i < targets.length; i++) {
+				targets[i].ondrop = drop; 
+				targets[i].ondragover = allowDrop; 
+			}
+			
+			// húzható elemek
+			for (var i = 0; i < draggable.length; i++) {
+				// id generálása
+				var id = 'drag_' + Math.ceil(Math.random() * 100000);
+				draggable[i].id = id;
+				draggable[i].setAttribute('draggable', 'true');
+				draggable[i].ondragstart = drag;
+			}
+		}
+		
+		function drag(ev) {
+			ev.dataTransfer.setData("sourceID", ev.target.id);
+		}
+		
+		setDragAndDrop();
+	</script>
+	
+</body>
+</html>
