@@ -113,7 +113,7 @@ console.log( odds );
 
 
 
-;var reloaded = angular.module( "reloaded", [] );
+;;var reloaded = angular.module( "reloaded", [] );
 reloaded.controller( "hello", ['$scope', '$http',
     function($scope, $http){
     $scope.name = "Jeffrey";
