@@ -28,5 +28,31 @@
 
 	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		// elemek kiválasztása, css módosítása
+		var targetLi = $('body .row ul')
+			.eq(0)
+			.find('li')
+			.eq(1);
+		
+		targetLi
+			.css({
+				'color' : 'blue',
+				'font-size' : '2em',
+				'text-decoration' : 'underline'
+		});
+		
+		var __to = setTimeout(function () {
+			clearTimeout(__to);
+			targetLi
+				.hide();
+		}, 3000);
+		
+		var __to2 = setTimeout(function () {
+			clearTimeout(__to2);
+			targetLi
+				.show();
+		}, 6000);
+	</script>
 </body>
 </html>
