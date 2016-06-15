@@ -9,21 +9,23 @@
 <body>
 	<div class="clearfix">&nbsp;</div>
 	<div class="row">
-		<ul>
-			<li>Füge</li>
-			<li>Eper</li>
-			<li>Virág</li>
-			<li>Tulipán</li>
-			<li>Madár</li>
-		</ul>
-		
-		<ul>
-			<li>Füge</li>
-			<li>Eper</li>
-			<li>Virág</li>
-			<li>Tulipán</li>
-			<li>Madár</li>
-		</ul>
+		<div class="col-xs-12">
+			<ul>
+				<li>Füge</li>
+				<li>Eper</li>
+				<li>Virág</li>
+				<li>Tulipán</li>
+				<li>Madár</li>
+			</ul>
+
+			<ul>
+				<li>Füge</li>
+				<li>Eper</li>
+				<li>Virág</li>
+				<li>Tulipán</li>
+				<li>Madár</li>
+			</ul>
+		</div>
 	</div>
 
 	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -40,8 +42,13 @@
 				'color' : 'blue',
 				'font-size' : '2em',
 				'text-decoration' : 'underline'
-		});
+			})
+			//.html('<b>ez új szöveg</b>')
+			.slideUp( 300 )
+			.delay( 800 )
+			.fadeIn( 400 );
 		
+		/*
 		var __to = setTimeout(function () {
 			clearTimeout(__to);
 			targetLi
@@ -53,6 +60,30 @@
 			targetLi
 				.show();
 		}, 6000);
+		*/
+		
+		// új js file hozzáadása
+		/*
+		így nem szabad hozzáadni!!
+		$('body')
+			.append('<script src="js/form.js"><\/script>');
+		*/
+		$.getScript('js/jq.js');
+		
+		// új elem hozzáadása egy meglévő elemhez
+		targetLi.append('<p>új elem </p>');
+		
+		// új elem hozzáadása a szülő elem végéhez
+		targetLi.parent().append('<li>1234567890</li>');
+		
+		// új elem hozzáadása a szülő elem elejéhez
+		targetLi.parent().prepend('<li>1234567890_eleje</li>');
+		
+		
+		targetLi.parent().parent().append('<div>lablec</div>');
+		
+		// ha nem tudom, hogy pontosan hány szülő eleme van
+		targetLi.parents('.col-xs-12').append('<div>lablec2</div>');
 	</script>
 </body>
 </html>
