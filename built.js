@@ -32,7 +32,111 @@ class dateClass {
         return parts.join('-');    
     };
 };
-;var test = 1;;//window.addEventListener('resize', function( ev ) {
+;var test = 1;;// natív ajax kérés
+// példányosítani kell egy új XMLHttpRequest-et
+//var xhr = new XMLHttpRequest;
+//
+//// meg kell adni a kérés típusát és a végpontot
+//xhr.open('get', 'json/user.json');
+//
+//// lekezeljük a választ
+//xhr.onload = function (ev) {
+//	console.log(ev.target.response);
+//	var users = JSON.parse(ev.target.response);
+//	console.log(users);
+//}
+//
+//// kérés elküldése
+//xhr.send();
+//
+//// ugyanez jquery használatával
+//$.ajax({
+//	url : 'json/user.json',
+//	dataType: 'json',
+//	success : function (response) {
+//		console.log(response);
+//	}
+//});
+
+// ugyanez mé rövidebben
+$.getJSON('json/user.json', function (users) {
+	console.log(users);
+	fillTable(users);
+});
+
+// felhasználók listája
+function fillTable(users) {
+	var btnTemplate = '<button class="btn btn-success mod-btn" data-user-id="?">módosítás</button>'
+	var keys = ['name', 'age', 'address', 'job'];
+	var tBody = $('.ajax-table tbody');
+	
+	for (var k in users) {
+		var id = 'user_' + (k + 1);
+		var tr = $('<tr >');
+		tr.append($('<td />').html(id));
+		for (var kk in keys) {
+			tr.append($('<td data-name="' + keys[kk] + '" />').html(users[k][keys[kk]]));
+		}
+	
+		tr.append(
+			$('<td />')
+				.append(btnTemplate.replace('?', id)) 
+		)
+		.appendTo(tBody)
+		//[0].userData = users[k]; // ez így nem szép
+		.data('userData', users[k]);
+	}
+	
+	// modális ablak megnyitása a felhasználó szerkesztéshez
+	// kikeresi a tbody elemen belül az összes mod-btn osztályú elemet
+//	tBody.find('.mod-btn').on('click', function() {
+//		console.log(this);
+//	});
+	// saját jquery plugin meghívása
+	tBody.find('.mod-btn').modBtn('ajaxModal');
+	//$("#ajaxModal").modal('show');
+}
+
+function updateTable(tr, userData) {
+	console.log('userData', userData);
+	tr.find('td').each( function (key, td) {
+		var k = $(td).data('name');
+		$(td).html(userData[k]);
+	});
+}
+
+// a módosítás gomb jQuery plugin-ja
+$.fn.modBtn = function (modalId) {
+	this.on('click', function() {
+		var modalWindow = $('#' + modalId);
+		//console.log(this);
+		//console.log('userData', $(this).parents('tr').data('userData') );
+		var tr = $(this).parents('tr');
+		var userData = tr.data('userData');
+		//console.log('userData', userData);
+		modalWindow
+			.find('input')
+			.each(function (key, input) {
+				//console.log('input', input);
+				$(input)
+					.val(userData[input.name])
+					.off('change')
+					.on('change', function () {
+						userData[this.name] = this.value;
+					});
+			});
+		modalWindow.data('userData', userData);
+		modalWindow
+			.find('.mod-save-btn')
+			.off('click')	// gomb kattintási esemény kezelő lekapcsolása
+			.on('click', function () {
+				updateTable(tr, userData);
+				modalWindow.modal('hide');
+			});
+		modalWindow.modal('show');
+	});
+	return this;
+};//window.addEventListener('resize', function( ev ) {
 //    console.debug( 'width', ev.target.innerWidth );
 //});
 //window.addEventListener('resize', function( ev ) {
@@ -113,7 +217,52 @@ console.log( odds );
 
 
 
-;;var reloaded = angular.module( "reloaded", [] );
+;alert('itt vagyok');;class Ls {
+	
+	constructor (name) {
+		if (!name) {
+			console.error('No name given');
+			return;
+		}
+		
+		this.name = name;
+		//this.debug = false;	
+		this.data = localStorage[name];
+		
+		if (!this.data) {
+			this.data = {};
+		} else {
+			this.data = JSON.parse(localStorage[name]);
+		}
+	}
+	
+	// update localstorage object
+	updateStorage() {
+		localStorage[this.name] = JSON.stringify(this.data);
+	}
+	
+	// adatok mentése a localStorage-basename
+	setItem(key, value) {
+		this.data[key] = value;
+		this.updateStorage();
+	}
+	
+	getItem(key) {
+		return this.data[key];
+	}
+	
+	// a localStorage összes elemének listázása
+	dump () {
+		var keys = Object.keys(this.data);
+		//console.log(keys);
+		var dumpContent = [];
+		for (var k in keys) {
+			var temp = `${keys[k]}: ${this.data[keys[k]]}`;
+			dumpContent.push(temp);
+		}
+		return dumpContent.join(';\n');
+	}
+};var reloaded = angular.module( "reloaded", [] );
 reloaded.controller( "hello", ['$scope', '$http',
     function($scope, $http){
     $scope.name = "Jeffrey";

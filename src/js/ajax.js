@@ -24,9 +24,9 @@
 //	}
 //});
 
-// ugyanez mé rövidebben
+// ugyanez még rövidebben
 $.getJSON('json/user.json', function (users) {
-	console.log(users);
+	//console.log(users);
 	fillTable(users);
 });
 
@@ -64,6 +64,7 @@ function fillTable(users) {
 }
 
 function updateTable(tr, userData) {
+	console.log('userData', userData);
 	tr.find('td').each( function (key, td) {
 		var k = $(td).data('name');
 		$(td).html(userData[k]);
@@ -83,17 +84,37 @@ $.fn.modBtn = function (modalId) {
 			.find('input')
 			.each(function (key, input) {
 				//console.log('input', input);
-				input.value = userData[input.name];
+				$(input)
+					.val(userData[input.name])
+					.off('change')
+					.on('change', function () {
+						userData[this.name] = this.value;
+					});
 			});
 		modalWindow.data('userData', userData);
 		modalWindow
 			.find('.mod-save-btn')
-			.off('click')
+			.off('click')	// gomb kattintási esemény kezelő lekapcsolása
 			.on('click', function () {
-				updateTable(tr, userdata);
+				updateTable(tr, userData);
 				modalWindow.modal('hide');
 			});
 		modalWindow.modal('show');
 	});
 	return this;
 }
+
+// repülő animálása
+$('.glyphicon-plane')
+	.css({
+		'font-size' : '48px',
+		'transform' : 'rotate(90deg)',
+		'opacity' : '0.5',
+		'right' : '1000px',
+		'position' : 'absolute'
+	})
+	.animate({
+		'opacity' : '1',
+		'right' : ['50%', 'swing'],
+		'font-size' : '72px'
+	}, 1000);
