@@ -3,31 +3,43 @@
         "name": "Jeffrey",
         "age": 42,
         "address": "New York",
-        "job": "programmer"
+        "job": "programmer",
+		"email" : "jeffrey@nettuts.com",
+		"pass" : "jeffrey"
     },{
         "name": "Joe",
         "age": 42,
         "address": "New York",
-        "job": "programmer"
+        "job": "programmer",
+		"email" : "jeffrey@nettuts.com",
+		"pass" : "joe"
     },{
         "name": "Jack",
         "age": 42,
         "address": "New York",
-        "job": "programmer"
+        "job": "programmer",
+		"email" : "jeffrey@nettuts.com",
+		"pass" : "jack"
     },{
         "name": "Ádám",
         "age": 42,
         "address": "New York",
-        "job": "programmer"
+        "job": "programmer",
+		"email" : "jeffrey@nettuts.com",
+		"pass" : "adam"
     },{
         "name": "Zsuzsi",
         "age": 42,
         "address": "New York",
-        "job": "programmer"
+        "job": "programmer",
+		"email" : "jeffrey@nettuts.com",
+		"pass" : "suzi"
     },{
         "name": "Józsi",
         "age": 42,
         "address": "New York",
-        "job": "programmer"
+        "job": "programmer",
+		"email" : "jeffrey@nettuts.com",
+		"pass" : "jozef"
     }
 ]
