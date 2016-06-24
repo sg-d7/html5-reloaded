@@ -5,18 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Starter Template for Bootstrap 3.3.6</title>
+	<base href="/build/">
+	<title>webapp</title>
 	<link rel="shortcut icon" href="">
 	<link rel="stylesheet" href="css/html5-reloaded.min.css">
 	<style></style>
 </head>
 
 <body data-ng-controller="bodyController">
-	<div data-ng-include="'template/nav.html'"></div>
+	<div data-ng-include="getTemplate('nav')"></div>
 
-	<div class="container" data-ng-show="isLoggedIn" data-ng-include="'template/content.html'"></div>
+	<div class="container" data-ng-show="isLoggedIn" data-ng-include="getTemplate('content')"></div>
 
-	<div class="row" data-ng-show="!isLoggedIn" data-ng-include="'template/login.html'"></div>
+	<div class="row" data-ng-show="!isLoggedIn" data-ng-include="getTemplate('login')"></div>
 
 	<script src="js/html5-reloaded.min.js"></script>
 </body>

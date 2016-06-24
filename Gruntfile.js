@@ -42,12 +42,14 @@ module.exports = grunt => {
                 src: '**',
                 dest: 'build/fonts'
               },
+			  /*
               {
                 expand: true,
                 cwd: 'src/json',
                 src: '**',
                 dest: 'build/json'
               },
+			  */
               {
                 expand: true,
                 cwd: 'src',
@@ -80,6 +82,7 @@ module.exports = grunt => {
         },
         dist: {
             src: [
+				'src/js/lib/*.js',
                 'src/js/*.js',
 				'src/js/factory/*.js',
                 'src/js/controller/*.js',

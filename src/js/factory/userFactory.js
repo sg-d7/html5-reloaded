@@ -4,9 +4,15 @@ webapp.factory('userFactory', ['$q', '$http', function ($q, $http) {
 		checkLogin : function (loginData) {
 			var deferred = $q.defer();
 			
+			$http.post('/dologin', loginData)
+				.then(function (loginResponse) {
+					console.log('loginResponse', loginResponse);
+				});
+			
+			/*
 			// lekérjük a felhasználókat
 			this.getUsers().then(function (users) {
-				console.log(users);
+				console.log('users', users);
 				// megkeressük az adott felhasználót
 				var loggedIn = false;
 				for (var k in users) {
@@ -20,7 +26,7 @@ webapp.factory('userFactory', ['$q', '$http', function ($q, $http) {
 				console.error('hiba a szerver kapcsolatban');
 				deferred.resolve(loggedIn);
 			});
-			
+			*/
 			return deferred.promise;
 		},
 		getUsers : function () {

@@ -41,5 +41,12 @@
         "job": "programmer",
 		"email" : "jeffrey@nettuts.com",
 		"pass" : "jozef"
+    },{
+        "name": "Teszt",
+        "age": 42,
+        "address": "New York",
+        "job": "programmer",
+		"email" : "test@test.com",
+		"pass" : "123"
     }
 ]
